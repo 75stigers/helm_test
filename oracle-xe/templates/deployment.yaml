@@ -25,10 +25,6 @@ spec:
             - name: ORACLE_ALLOW_REMOTE
               value: "true"
             - name: ORACLE_PASSWORD
-              value: "oracle"  # Standardlösenord för XE
-          volumeMounts:
-            - name: oracle-data
-              mountPath: /u01/app/oracle/oradata
-      volumes:
-        - name: oracle-data
-          emptyDir: {}
+              value: "oracle"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

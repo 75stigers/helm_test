@@ -9,4 +9,13 @@ service:
   type: ClusterIP
   port: 1521
 
-resources: {}
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+  limits:
+    memory: "1Gi"
+    cpu: "1"
+
+persistence:
+  enabled: false
