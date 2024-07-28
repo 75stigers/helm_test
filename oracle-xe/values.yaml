@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: oracleinanutshell/oracle-xe-11g
+  repository: container-registry.oracle.com/database/free
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -18,4 +18,10 @@ resources:
     cpu: "1"
 
 persistence:
-  enabled: false
+  enabled: false  # Ingen persistens; data går förlorad vid omstart
+
+oracle:
+  password: "oracle"  # Ställ in detta till det önskade lösenordet
+  characterSet: "AL32UTF8"  # Exempel på teckenuppsättning
+  enableArchiveLog: true
+  enableForceLogging: true

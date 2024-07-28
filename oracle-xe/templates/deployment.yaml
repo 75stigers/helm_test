@@ -22,9 +22,19 @@ spec:
             - name: oracle
               containerPort: 1521
           env:
-            - name: ORACLE_ALLOW_REMOTE
-              value: "true"
-            - name: ORACLE_PASSWORD
-              value: "oracle"
+            - name: ORACLE_PWD
+              value: "{{ .Values.oracle.password }}"
+            - name: ORACLE_CHARACTERSET
+              value: "{{ .Values.oracle.characterSet }}"
+            - name: ENABLE_ARCHIVELOG
+              value: "{{ .Values.oracle.enableArchiveLog }}"
+            - name: ENABLE_FORCE_LOGGING
+              value: "{{ .Values.oracle.enableForceLogging }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: oracle-data
+              mountPath: /opt/oracle/oradata
+      volumes:
+        - name: oracle-data
+          emptyDir: {}  # Ingen persistent lagring
