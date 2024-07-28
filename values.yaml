@@ -1,0 +1,28 @@
+replicas: 1
+
+demo:
+  image: 75stigers/demo:latest
+  containerPort: 8090  # Intern port för demo-appen
+
+adminserver:
+  image: 75stigers/adminserver:latest
+  containerPort: 8085  # Intern port för adminserver-appen
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  hosts:
+    - host: localhost
+      paths:
+        - path: /demo(/|$)(.*)
+          pathType: ImplementationSpecific
+          service:
+            name: demo
+            port: 80
+        - path: /admin(/|$)(.*)
+          pathType: ImplementationSpecific
+          service:
+            name: adminserver
+            port: 80
