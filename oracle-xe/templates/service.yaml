@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: oracle-xe
+  labels:
+    app: oracle-xe
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 1521
+      protocol: TCP
+  selector:
+    app: oracle-xe

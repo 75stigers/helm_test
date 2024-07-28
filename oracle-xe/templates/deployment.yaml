@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oracle-xe
+  labels:
+    app: oracle-xe
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: oracle-xe
+  template:
+    metadata:
+      labels:
+        app: oracle-xe
+    spec:
+      containers:
+        - name: oracle-xe
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: oracle
+              containerPort: 1521
+          env:
+            - name: ORACLE_ALLOW_REMOTE
+              value: "true"
+            - name: ORACLE_PASSWORD
+              value: "oracle"  # Standardlösenord för XE
+          volumeMounts:
+            - name: oracle-data
+              mountPath: /u01/app/oracle/oradata
+      volumes:
+        - name: oracle-data
+          emptyDir: {}
