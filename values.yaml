@@ -20,6 +20,11 @@ elasticsearch:
     enabled: true
   global:
     storageClass: "standard"
+  ports:
+    http:
+      containerPort: 9200
+    transport:
+      containerPort: 9300
 
 logstash:
   volumePermissions:
