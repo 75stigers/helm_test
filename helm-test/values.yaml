@@ -1,0 +1,38 @@
+
+adminserver:
+  image:
+    repository: 75stigers/adminserver
+    tag: latest
+  replicaCount: 1
+  service:
+    port: 8085
+
+demo:
+  image:
+    repository: 75stigers/demo
+    tag: latest
+  replicaCount: 1
+  service:
+    port: 8090
+
+elasticsearch:
+  volumePermissions:
+    enabled: true
+  global:
+    storageClass: "standard"
+
+logstash:
+  volumePermissions:
+    enabled: true
+  global:
+    storageClass: "standard"
+
+kibana:
+  elasticsearch:
+    hosts: "http://helm-test-elasticsearch:9200"
+  ingress:
+    enabled: true
+    hostname: localhost
+    path: /elk/kibana
+    pathType: ImplementationSpecific
+
