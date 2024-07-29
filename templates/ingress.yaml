@@ -1,46 +1,34 @@
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: helm-test-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /\
 spec:
   rules:
     - host: localhost
       http:
         paths:
-          - path: /demo(/|$)(.*)
+          - path: /demo(/|\$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: demo
                 port:
-                  number: {{ .Values.demo.service.port }}
-          - path: /admin(/|$)(.*)
+                  number: 80
+          - path: /admin(/|\$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: adminserver
                 port:
-                  number: {{ .Values.adminserver.service.port }}
-          - path: /elk/elasticsearch(/|$)(.*)
+                  number: 80
+          - path: /elk/kibana(/|\$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: elasticsearch
+                name: helm-test-kibana
                 port:
-                  number: {{ .Values.elasticsearch.service.port }}
-          - path: /elk/logstash(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: logstash
-                port:
-                  number: {{ .Values.logstash.service.port }}
-          - path: /elk/kibana(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: kibana
-                port:
-                  number: {{ .Values.kibana.service.port }}
+                  number: 5601
+

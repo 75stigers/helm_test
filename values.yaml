@@ -1,3 +1,4 @@
+
 adminserver:
   image:
     repository: 75stigers/adminserver
@@ -15,22 +16,23 @@ demo:
     port: 8090
 
 elasticsearch:
-  image:
-    repository: docker.elastic.co/elasticsearch/elasticsearch
-    tag: 7.10.2
-  service:
-    port: 9200
+  volumePermissions:
+    enabled: true
+  global:
+    storageClass: "standard"
 
 logstash:
-  image:
-    repository: docker.elastic.co/logstash/logstash
-    tag: 7.10.2
-  service:
-    port: 5044
+  volumePermissions:
+    enabled: true
+  global:
+    storageClass: "standard"
 
 kibana:
-  image:
-    repository: docker.elastic.co/kibana/kibana
-    tag: 7.10.2
-  service:
-    port: 5601
+  elasticsearch:
+    hosts: "http://helm-test-elasticsearch:9200"
+  ingress:
+    enabled: true
+    hostname: localhost
+    path: /elk/kibana
+    pathType: ImplementationSpecific
+
