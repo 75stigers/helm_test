@@ -20,6 +20,10 @@ elasticsearch:
     enabled: true
   global:
     storageClass: "standard"
+  replicaCount: 1
+  image:
+    repository: "bitnami/elasticsearch"
+    tag: "21.3.6"
   ports:
     http:
       containerPort: 9200
