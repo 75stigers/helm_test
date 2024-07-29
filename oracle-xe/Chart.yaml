@@ -1,4 +1,0 @@
-apiVersion: v2
-name: oracle-xe
-description: A Helm chart for Oracle Database Express Edition
-version: 0.1.0

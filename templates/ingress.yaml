@@ -1,26 +1,46 @@
-{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "helm-test.fullname" . }}
+  name: helm-test-ingress
   annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-      {{ $key }}: {{ $value | quote }}
-      {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host }}
+    - host: localhost
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
-            pathType: {{ .pathType }}
+          - path: /demo(/|$)(.*)
+            pathType: Prefix
             backend:
               service:
-                name: {{ .service.name }}
+                name: demo
                 port:
-                  number: {{ .service.port }}
-          {{- end }}
-    {{- end }}
-  {{- end }}
+                  number: {{ .Values.demo.service.port }}
+          - path: /admin(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: adminserver
+                port:
+                  number: {{ .Values.adminserver.service.port }}
+          - path: /elk/elasticsearch(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: elasticsearch
+                port:
+                  number: {{ .Values.elasticsearch.service.port }}
+          - path: /elk/logstash(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: logstash
+                port:
+                  number: {{ .Values.logstash.service.port }}
+          - path: /elk/kibana(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: kibana
+                port:
+                  number: {{ .Values.kibana.service.port }}
