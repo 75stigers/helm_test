@@ -17,20 +17,20 @@ demo:
 elasticsearch:
   image:
     repository: docker.elastic.co/elasticsearch/elasticsearch
-    tag: 7.17.0
+    tag: 7.10.2
   service:
     port: 9200
 
 logstash:
   image:
     repository: docker.elastic.co/logstash/logstash
-    tag: 7.17.0
+    tag: 7.10.2
   service:
     port: 5044
 
 kibana:
   image:
     repository: docker.elastic.co/kibana/kibana
-    tag: 7.17.0
+    tag: 7.10.2
   service:
     port: 5601
