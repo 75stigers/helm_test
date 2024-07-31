@@ -5,6 +5,7 @@ metadata:
   name: demo
   labels:
     app: demo
+    spring-boot: "ja"
 spec:
   replicas: {{ .Values.demo.replicaCount }}
   selector:
@@ -14,7 +15,6 @@ spec:
     metadata:
       labels:
         app: demo
-        spring-boot: "ja"
     spec:
       containers:
         - name: demo
