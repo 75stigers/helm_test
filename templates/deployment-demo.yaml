@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app: demo
-        spring-boot: "true"
+        spring-boot: "ja"
     spec:
       containers:
         - name: demo
