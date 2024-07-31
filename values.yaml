@@ -15,33 +15,4 @@ demo:
   service:
     port: 8090
 
-elasticsearch:
-  volumePermissions:
-    enabled: true
-  global:
-    storageClass: "standard"
-  replicaCount: 1
-  image:
-    repository: "bitnami/elasticsearch"
-    tag: "21.3.6"
-  ports:
-    http:
-      containerPort: 9200
-    transport:
-      containerPort: 9300
-
-logstash:
-  volumePermissions:
-    enabled: true
-  global:
-    storageClass: "standard"
-
-kibana:
-  elasticsearch:
-    hosts: "http://helm-test-elasticsearch:9200"
-  ingress:
-    enabled: true
-    hostname: localhost
-    path: /elk/kibana
-    pathType: ImplementationSpecific
 
