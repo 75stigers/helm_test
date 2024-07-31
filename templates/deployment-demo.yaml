@@ -5,7 +5,7 @@ metadata:
   name: demo
   labels:
     app: demo
-    spring-boot: "ja"
+    spring-boot: "true"
 spec:
   replicas: {{ .Values.demo.replicaCount }}
   selector:
